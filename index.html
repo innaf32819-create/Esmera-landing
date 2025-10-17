@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Esmera Global Solutions — Landing</title>
+  <meta name="theme-color" content="#0b1320" />
+
+  <!-- Tailwind CSS via CDN (no build needed) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    /* Base visuals */
+    .bg-emerald-gradient { background: linear-gradient(180deg,#0f172a 0%,#022c22 60%,#065f46 100%); }
+    .frosted { backdrop-filter: blur(8px); background: rgba(255,255,255,0.85); }
+    .container-narrow { max-width: 1080px; }
+    .nav-link { padding: 0.35rem 0.5rem; border-radius: 0.5rem; font-size: 0.75rem; font-weight:600; }
+    .nav-link:hover { background: rgba(255,255,255,0.10); }
+
+    /* Hero media */
+    #home { position: relative; }
+    #home .hero-media { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center center; z-index:-2; background:#0b1320; }
+    #home .hero-scrim { position:absolute; inset:0; background:transparent; z-index:-1; pointer-events:none; }
+    #home.has-hero-overlay .hero-scrim { background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,.28)); }
+    #home h1, #home p { text-shadow: none; }
+
+    /* Buttons */
+    .btn { display:inline-flex; align-items:center; justify-content:center; font-weight:700; padding:0.75rem 1.25rem; border-radius:0; box-shadow:0 2px 6px rgba(0,0,0,.15); }
+    .btn-primary { background:#000; color:#fff; }
+    .btn-primary:hover { background:#111; }
+    .btn-secondary { background:#000; color:#fff; }
+    .btn-secondary:hover { background:#111; }
+
+    /* Lang buttons */
+    .btn-flag{ border-radius:0; font-weight:700; background:#065f46; color:#dfe6ef; border:1px solid #10b981; padding:0.35rem 0.6rem; font-size:0.75rem; line-height:1; }
+    .btn-flag:hover{ background:#047857; }
+    .btn-flag:focus-visible{ outline:2px solid #34d399; outline-offset:2px; }
+    .lang-en,.lang-ru,.lang-kz{ background:#065f46; color:#dfe6ef; border-color:#10b981; }
+
+    /* Plates */
+    .plate{ position:relative; border-radius:14px; background:linear-gradient(135deg,#006b5b 0%, #00483f 55%, #001311 85%, #000 100%) !important; color:#fff !important; border:0 !important; box-shadow: 0 14px 28px rgba(0,0,0,.45), 0 2px 10px rgba(0,0,0,.35), 0 0 34px rgba(0,107,91,.25); }
+    .plate::before{ content:""; position:absolute; inset:0; pointer-events:none; border-radius:14px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06), inset 0 0 22px rgba(16,185,129,.08); }
+    .plate h2, .plate h3{ color:#fff !important; font-weight:800; letter-spacing:-.01em; }
+    .plate p, .plate li, .plate span, .plate a:not(.btn-social){ color:#fff !important; opacity:.96; text-shadow:none; background:none; -webkit-text-fill-color:initial; }
+    .plate a{ text-decoration: underline; text-underline-offset:4px; }
+    .plate .lucide{ color:#10b981 !important; stroke:#10b981 !important; stroke-width:1.6; opacity:.95; }
+
+    /* About (same bg as others) */
+    #about { position: relative; }
+    #about::before { content: none; }
+    #about .plate{ position:relative; border-radius:14px; background: rgba(255,255,255,0.55) !important; color:#0f172a !important; border:0 !important; backdrop-filter: blur(10px); box-shadow: 0 10px 28px rgba(0,0,0,.25); }
+    #about .plate h1,#about .plate h2,#about .plate h3,#about .plate p,#about .plate li,#about .plate span,#about .plate a{ color:#0f172a !important; -webkit-text-fill-color: initial; background:none; text-shadow:none; }
+    #about .plate a{ text-decoration: underline; text-underline-offset:4px; color:#065f46 !important; }
+    @media (max-width: 768px){ #about .plate{ background: rgba(255,255,255,0.68) !important; } }
+
+    /* Anchor offset */
+    section[id]{ scroll-margin-top: 140px; }
+
+    /* Metallic heading */
+    .metallic{ background: linear-gradient(180deg,#fbfcfd 0%, #eef2f5 30%, #d6dce2 55%, #f7f9fb 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent; text-shadow: 0 1px 0 rgba(255,255,255,.5), 0 2px 10px rgba(255,255,255,.18), 0 2px 8px rgba(0,0,0,.22); letter-spacing: .2px; }
+
+    /* Lists */
+    #strategy-items{ list-style:none; padding-left:0; margin-left:0; }
+    #strategy-items li{ list-style:none; }
+    .no-bullets{ list-style:none; padding-left:0; margin-left:0; }
+    .no-bullets li{ list-style:none; }
+
+    /* Contact emails */
+    .contact-email, .contact-email span { text-decoration: none !important; font-weight: 700 !important; }
+
+    /* Page background — darker metallic gradient */
+    .bg-metallic{
+      background:
+        radial-gradient(1200px 800px at 20% 10%, rgba(0,0,0,0.06), transparent 60%),
+        radial-gradient(900px 600px at 80% 90%, rgba(0,0,0,0.04), transparent 55%),
+        linear-gradient(135deg,#e3e8ee 0%, #d7e0e8 28%, #c4cdd8 60%, #dfe5eb 100%);
+    }
+    section h2, section h3{color:#000;}
+
+    /* Social buttons */
+    .btn-social{position:relative;display:inline-flex;align-items:center;gap:.6rem;padding:.6rem 1rem;border-radius:9999px;font-weight:700;text-decoration:none !important;line-height:1;background:transparent;color:#fff;border:0;box-shadow:0 8px 20px rgba(0,0,0,.20);transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;overflow:hidden;backdrop-filter:saturate(120%) blur(4px);cursor:pointer;}
+    .btn-social:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,0));opacity:.35;pointer-events:none}
+    .btn-li{background:linear-gradient(135deg,#0a66c2 0%, #084f97 100%)}
+    .btn-tg{background:linear-gradient(135deg,#229ED9 0%, #177aa8 100%)}
+
+    /* Emerald bullets */
+    .emerald-list{ list-style:none; padding-left:1.25rem; margin:0; }
+    .emerald-list li{ position:relative; margin:.35rem 0; }
+    .emerald-list li::before{ content:""; position:absolute; left:-1.25rem; top:.55em; width:9px; height:9px; background: radial-gradient(circle at 35% 35%, #34d399, #059669 70%); transform: rotate(45deg); border-radius:2px; box-shadow: 0 0 6px rgba(16,185,129,.45); }
+
+    /* Brand font */
+    :root{ --brand-font: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji'; }
+    body{ font-family: var(--brand-font); letter-spacing:.2px; }
+    h1,h2,h3{ font-weight:800; letter-spacing:-.01em; }
+    .btn, .btn-flag{ font-family: var(--brand-font); }
+    header span[class*="font-extrabold"]{ letter-spacing:-.01em; }
+
+    /* Hero fallback image + overlay */
+    #home.parallax .hero-image{ background-attachment: fixed; }
+    #home .hero-image{ position:absolute; inset:0; z-index:-3; background-image:url('./assets/images/hero-industrial.jpg'); background-size:cover; background-position:center; background-repeat:no-repeat; opacity:1; transition:opacity .6s ease; }
+    #home .hero-cinematic{ position:absolute; inset:0; z-index:-1; pointer-events:none; background: linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(2,44,34,0.55) 40%, rgba(0,0,0,0.65) 100%), radial-gradient(1200px 600px at 20% 30%, rgba(16,185,129,0.15), transparent 60%), radial-gradient(900px 500px at 80% 70%, rgba(16,185,129,0.10), transparent 60%); }
+    @media (max-width: 767px){ #home.parallax .hero-image{ background-attachment: scroll; } }
+
+    .brand-name{ word-spacing:0.5em; }
+    /* Mobile nav panel */
+    #mobile-nav{ display:none; }
+    #mobile-nav.open{ display:block; }
+  </style>
+
+  <!-- Brand font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body class="antialiased text-slate-800 bg-metallic">
+  <!-- Header / Nav -->
+  <header class="sticky top-0 z-40 bg-black/70 text-white backdrop-blur border-b border-white/10">
+    <div class="mx-auto container-narrow px-4 py-3 flex items-center gap-4">
+      <img src="./assets/images/logo.png" alt="Esmera Logo" class="h-16 md:h-20 w-auto" />
+      <span class="font-extrabold tracking-tight text-base md:text-lg whitespace-nowrap brand-name">ESMERA GLOBAL SOLUTIONS</span>
+
+      <nav class="hidden md:flex items-center gap-0.5 text-xs md:ml-6 lg:ml-10" id="top-nav">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#strategy" class="nav-link">Strategy</a>
+        <a href="#services" class="nav-link">Services</a>
+        <a href="#why" class="nav-link">Why Us</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#contact" class="nav-link">Contacts</a>
+      </nav>
+
+      <div class="ml-auto flex items-center gap-2">
+        <!-- Language Switcher -->
+        <button class="btn btn-secondary btn-flag text-xs lang-en" data-lang-btn="en" aria-label="English">EN</button>
+        <button class="btn btn-secondary btn-flag text-xs lang-kz" data-lang-btn="kz" aria-label="Қазақша">KZ</button>
+        <button class="btn btn-secondary btn-flag text-xs lang-ru" data-lang-btn="ru" aria-label="Русский">RU</button>
+        <!-- Mobile menu toggle -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded border border-white/10 hover:bg-white/10" aria-label="Open menu" aria-controls="mobile-nav" aria-expanded="false">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Nav -->
+  <nav id="mobile-nav" class="md:hidden bg-black/95 text-white border-b border-white/10">
+    <div class="mx-auto container-narrow px-4 py-2">
+      <div class="grid gap-1">
+        <a href="#home" class="block py-3 text-base nav-link">Home</a>
+        <a href="#strategy" class="block py-3 text-base nav-link">Strategy</a>
+        <a href="#services" class="block py-3 text-base nav-link">Services</a>
+        <a href="#why" class="block py-3 text-base nav-link">Why Us</a>
+        <a href="#about" class="block py-3 text-base nav-link">About</a>
+        <a href="#contact" class="block py-3 text-base nav-link">Contacts</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home" class="relative text-white parallax">
+    <div class="hero-image" id="hero-image" aria-hidden="true"></div>
+    <video class="hero-media" id="hero-video" autoplay muted playsinline loop preload="auto" poster="./assets/images/hero.jpg" aria-hidden="true" disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback">
+      <source src="./assets/videos/hero.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-cinematic"></div>
+
+    <div class="mx-auto container-narrow px-4 py-24 md:py-32">
+      <div class="max-w-3xl">
+        <h1 class="sr-only">ESMERA GLOBAL SOLUTIONS</h1>
+        <p class="mt-5 text-lg md:text-xl font-extrabold uppercase tracking-wide" data-i18n="hero-sub"></p>
+        <p class="mt-3 text-base md:text-lg" data-i18n="hero-sub-2"></p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#contact" class="btn btn-primary" data-i18n="cta1"></a>
+          <a href="#services" class="btn btn-secondary" data-i18n="cta2"></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Strategy -->
+  <section id="strategy">
+    <div class="mx-auto container-narrow px-4 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold" data-i18n="strategy-title"></h2>
+      <p class="mt-2 font-bold text-black" data-i18n="strategy-lead"></p>
+      <ul class="mt-6 grid gap-4 md:grid-cols-2" id="strategy-items"></ul>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="relative">
+    <div class="mx-auto container-narrow px-4 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold pl-6" data-i18n="about-title"></h2>
+      <div class="mt-6 plate p-6" id="about-plate"></div>
+    </div>
+  </section>
+
+  <!-- Core Services -->
+  <section id="services">
+    <div class="mx-auto container-narrow px-4 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold" data-i18n="services-title"></h2>
+      <div id="services-blocks" class="mt-8 grid gap-6 md:grid-cols-2"></div>
+    </div>
+  </section>
+
+  <!-- Why Us -->
+  <section id="why">
+    <div class="mx-auto container-narrow px-4 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold">Why Choose Esmera Global Solutions?</h2>
+      <div id="why-cards" class="mt-8 grid gap-6 md:grid-cols-2"></div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="text-white">
+    <div class="mx-auto container-narrow px-4 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold" data-i18n="contact-title"></h2>
+
+      <div class="mt-6 grid gap-6 md:grid-cols-3">
+        <div class="plate p-6 border">
+          <h3 class="font-semibold mb-2" data-i18n="contact-quote-title">Get your quote today</h3>
+          <a href="mailto:enquiries@esmerasol.com" class="inline-flex items-center gap-2 contact-email">
+            <span>enquiries@esmerasol.com</span>
+          </a>
+        </div>
+
+        <div class="plate p-6 border">
+          <h3 class="font-semibold mb-2" data-i18n="contact-cv-title">Register your CV</h3>
+          <a href="mailto:candidates@esmerasol.com" class="inline-flex items-center gap-2 contact-email">
+            <span>candidates@esmerasol.com</span>
+          </a>
+        </div>
+
+        <div class="plate p-6 border">
+          <h3 class="font-semibold mb-4" data-i18n="contact-follow-title">For current opportunities</h3>
+          <div class="flex items-center gap-4">
+            <a id="ln-link" href="https://www.linkedin.com/company/109095232" target="_blank" rel="noopener noreferrer" class="btn-social btn-li hover:opacity-100" aria-label="LinkedIn — Esmera Global Solutions">
+              <i data-lucide="linkedin" class="w-5 h-5"></i>
+              <span data-i18n="label-linkedin">LinkedIn</span>
+            </a>
+            <a id="tg-link" data-social="telegram" href="https://t.me/Esmera_Global_Solutions" target="_blank" rel="noopener noreferrer nofollow" class="btn-social btn-tg hover:opacity-100" aria-label="Telegram — Esmera Global Solutions">
+              <i data-lucide="send" class="w-5 h-5"></i>
+              <span data-i18n="label-telegram">Telegram</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-neutral-900 text-white">
+    <div class="mx-auto container-narrow px-4 py-6 text-sm text-center">
+      © 2025 Esmera Global Solutions
+    </div>
+  </footer>
+
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+
+  <!-- i18n Data (VALID JSON) -->
+  <script id="i18n-data" type="application/json">
+  {
+    "en": {
+      "nav": ["Home","Strategy","Services","Why Us","About","Contacts"],
+      "heroSub": "POWERED BY INDUSTRY EXPERTS: GLOBAL RECRUITMENT & CONSULTING FOR THE ENERGY INDUSTRY",
+      "heroSub2": "Our approach drives excellence across every stage of the recruitment process, merging deep industry expertise with best‑practice methodologies and innovation to deliver results that consistently exceed expectations.",
+      "cta1": "Get your quote today",
+      "cta2": "Explore services",
+      "strategyTitle": "Our Strategy",
+      "strategyLead": "Our strategy is built on four key pillars:",
+      "strategyItems": [
+        "International Recruitment for the Gulf — Attracting highly qualified Kazakhstani specialists for Qatar, Saudi Arabia, and other countries in the region.",
+        "Local Content Development in Kazakhstan — Supporting the growth of young national professionals and enhancing qualifications for major industrial and energy projects through investment in national programs of the Republic of Kazakhstan, as well as youth development initiatives.",
+        "Corporate Training & Development — Delivering programs to strengthen technical, managerial, and ESG competencies.",
+        "HR Outsourcing & Onboarding — Ensuring smooth adaptation of specialists, compliance monitoring, and full integration into projects."
+      ],
+      "servicesTitle": "Core Services",
+      "servicesBlocks": [
+        { "h": "Recruitment & Executive Search", "ps": [
+          "Permanent recruitment for technical and managerial positions.",
+          "Executive search for top management.",
+          "Headhunting of rare and highly qualified professionals."
+        ]},
+        { "h": "Project & Temporary Staffing", "ps": [
+          "Temporary and project-based staffing (EPCM/EPC projects)."
+        ]},
+        { "h": "Technical Workforce & O&M Support", "ps": [
+          "Supply of qualified manpower for maintenance and operations.",
+          "Field services, supervision, and shutdown support.",
+          "Operation & Maintenance (O&M) assistance for energy and industrial projects."
+        ]},
+        { "h": "International Recruitment & Mobility", "ps": [
+          "Hiring Internationally",
+          "Relocation and visa support.",
+          "Global search for niche and rare experts."
+        ]},
+        { "h": "Career Advisory", "ps": [
+          "Career consulting for job seekers: skill optimization, competitiveness improvement, and career growth planning."
+        ]},
+        { "h": "Corporate Training & Development", "ps": [
+          "Corporate training programs (technical, managerial, ESG, leadership)",
+          "Tailored training solutions designed for client needs",
+          "Selection and organization of leading international programs for professional upskilling"
+        ]}
+      ],
+      "whyCards": [
+        "International Expertise + Personal Approach — We combine global know-how with a tailor-made strategy for every client and candidate.",
+        "Integrated Solutions — From recruitment and payroll outsourcing to training and certification, we cover the full talent lifecycle.",
+        "Global Standards & Accreditation — Our services comply with ISO, ILO, and HSE requirements - ensuring quality, safety, and compliance.",
+        "Advanced Testing & Development — Using tools like SHL, Hogan, and Talent Q, we deliver accurate assessment and support continuous learning.",
+        "ESG & Sustainability Commitment — We operate by the Three Pillars of Sustainability: People - fairness, inclusion, growth; Planet - responsibility, reduced footprint; Profit - long-term value and prosperity.",
+        "Strategic Partnership — We don't just supply staff - we become your trusted partner for building sustainable, high-performing teams."
+      ],
+      "aboutTitle": "About Us",
+      "aboutText": "Esmera Global Solutions is a consulting and recruitment company applying international best-practice standards from the energy industry. We provide recruitment, project support, and consulting services across oil and gas, industrial construction, and renewable energy sectors.<br><br>Our team combines more than 30 years of international oil and gas experience with over a decade of work in leading companies in Kazakhstan and the CIS. This unique mix of global and local expertise enables us to deliver practical value and anticipate client needs.<br><br>Founded in Aksay, Western Kazakhstan — in proximity to the Karachaganak gas condensate field — we have gained direct exposure to world-class projects. This experience has allowed us to develop advantages fully transferable to our clients, such as:",
+      "aboutBullets": [
+        "Access to advanced technologies and cutting-edge industry practices.",
+        "Strong capability in attracting and adapting the best human resources.",
+        "Over 30 years of direct presence in international oil markets.",
+        "A proven ability to deliver solutions that reflect market changes and innovations rapidly."
+      ],
+      "contactTitle":  "Contacts",
+      "plateLabels": { "quote": "Get your quote today", "cv": "Register your CV", "follow": "For current opportunities", "linkedin": "LinkedIn", "telegram": "Telegram" },
+      "links": { "linkedin": "https://www.linkedin.com/company/109095232", "telegram": "https://t.me/Esmera_Global_Solutions" }
+    },
+    "ru": {
+      "nav": ["Главная","Стратегия","Услуги","Почему мы","О нас","Контакты"],
+      "heroSub": "СОЗДАНО ОТРАСЛЕВЫМИ ЭКСПЕРТАМИ: ГЛОБАЛЬНЫЙ РЕКРУТМЕНТ И КОНСАЛТИНГ ДЛЯ НЕФТЕГАЗОВОЙ ИНДУСТРИИ.",
+      "heroSub2": "Наш подход обеспечивает совершенство на каждом этапе рекрутингового процесса, объединяя глубокую отраслевую экспертизу, лучшие методологии и инновации для достижения результатов, которые неизменно превосходят ожидания.",
+      "cta1": "Получить расчёт стоимости",
+      "cta2": "Посмотреть услуги",
+      "strategyTitle": "Наша стратегия",
+      "strategyLead": "Наша стратегия строится на четырёх столпах:",
+      "strategyItems": [
+        "Международный рекрутмент для стран Залива — Привлечение высококвалифицированных казахстанских специалистов для Катара, Саудовской Аравии и других стран региона.",
+        "Развитие Local Content в Казахстане — Поддержка роста молодых национальных специалистов и повышение квалификаций для крупных промышленных и энергетических проектов через инвестиции в государственные и молодежные программы РК.",
+        "Корпоративное обучение и развитие — Программы для укрепления технических, управленческих и ESG-компетенций.",
+        "Аутсорсинг HR и онбординг — Плавная адаптация специалистов, контроль соблюдения требований и полная интеграция в проекты."
+      ],
+      "servicesTitle": "Ключевые услуги",
+      "servicesBlocks": [
+        { "h": "Рекрутмент и Executive Search", "ps": [
+          "Постоянный подбор технических и управленческих специалистов.",
+          "Executive search для топ-менеджмента.",
+          "Хэдхантинг редких и высококвалифицированных экспертов."
+        ]},
+        { "h": "Проектный и временный персонал", "ps": [
+          "Временный и проектный аутстаффинг (проекты EPCM/EPC)."
+        ]},
+        { "h": "Технический персонал и поддержка O&M", "ps": [
+          "Поставка квалифицированного персонала для обслуживания и эксплуатации.",
+          "Полевые работы, шеф-монтаж/супервайзинг и поддержка остановов (shutdown).",
+          "Поддержка эксплуатации и обслуживания (O&M) для энергетических и промышленных проектов."
+        ]},
+        { "h": "Международный рекрутмент и мобилити", "ps": [
+          "Международный найм",
+          "Поддержка релокации и виз.",
+          "Глобальный поиск нишевых и редких экспертов."
+        ]},
+        { "h": "Карьерное консультирование", "ps": [
+          "Карьерное консультирование соискателей: развитие навыков, конкурентоспособности и планирование роста."
+        ]},
+        { "h": "Корпоративное обучение и развитие", "ps": [
+          "Программы обучения (технические, управленческие, ESG, лидерство)",
+          "Индивидуальные решения под задачи клиента",
+          "Подбор и организация международных программ повышения квалификации"
+        ]}
+      ],
+      "whyCards": [
+        "Международная экспертиза + личный подход — Сочетаем глобальные практики с индивидуальной стратегией для каждого клиента и кандидата.",
+        "Интегрированные решения — От подбора и аутсорсинга расчёта заработной платы до обучения и сертификации — весь жизненный цикл талантов.",
+        "Международные стандарты и аккредитации — Соответствие требованиям ISO, ILO и HSE — качество, безопасность и комплаенс.",
+        "Продвинутая оценка и развитие — Инструменты SHL, Hogan, Talent Q — точная оценка и поддержка непрерывного обучения.",
+        "ESG и устойчивое развитие — Три столпа устойчивости: Люди — справедливость, инклюзия, өсу; Планета — ответственность, снижение следа; Прибыль — долгосрочная ценность.",
+        "Стратегическое партёрство — Мы не просто закрываем позиции — становимся доверенным партнёром по построению эффективных команд."
+      ],
+      "aboutTitle": "О нас",
+      "aboutText": "Esmera Global Solutions — консалтинговая и рекрутинговая компания, работающая по лучшим международным практикам энергетической отрасли. Мы предоставляем услуги по подбору персонала, проектной поддержке и консалтингу в нефтегазе, промышленном строительстве и ВИЭ.<br><br>Наша команда объединяет более 30 лет международного опыта и свыше десяти лет работы в ведущих компаниях Казахстана и СНГ. Уникальное сочетание глобальной и локальной экспертизы позволяет нам приносить практическую ценность и предвосхищать потребности клиентов.<br><br>Штаб-квартира в Аксае, рядом с Карачаганакским ГКК — прямой доступ к проектам мирового уровня. Это даёт преимущества, полностью передаваемые нашим клиентам:",
+      "aboutBullets": [
+        "Доступ к передовым технологиям и отраслевым практикам.",
+        "Сильные компетенции по привлечению и адаптации лучших специалистов.",
+        "Более 30 лет прямого присутствия на международных нефтяных рынках.",
+        "Быстрая реакция на изменения рынка и внедрение инноваций."
+      ],
+      "contactTitle":  "Контакты",
+      "plateLabels": { "quote": "Запрос коммерческого предложения", "cv": "Отправить резюме", "follow": "Актуальные вакансии", "linkedin": "LinkedIn", "telegram": "Telegram" },
+      "links": { "linkedin": "https://www.linkedin.com/company/109095232", "telegram": "https://t.me/Esmera_Global_Solutions" }
+    },
+    "kz": {
+      "nav": ["Басты бет","Стратегия","Қызметтер","Неге біз","Біз туралы","Байланыс"],
+      "heroSub": "САЛА МАМАНДАРЫНЫҢ ТӘЖІРИБЕСІНЕ НЕГІЗДЕЛГЕН: МҰНАЙ-ГАЗ САЛАСЫНА АРНАЛҒАН ҒАЛАМДЫҚ РЕКРУТИНГ ЖӘНЕ КОНСАЛТИНГ",
+      "heroSub2": "Біздің тәсіліміз рекрутинг үдерісінің әр кезеңінде мінсіздікке қол жеткізуді қамтамасыз етеді, терең салалық тәжірибені үздік әдістемелермен және инновациялармен бірікте отырып, күтулерден ұдайы асып түсетін нәтижелерге қол жеткізуге мүмкіндік береді.",
+      "cta1": "Бағаны есептеу",
+      "cta2": "Қызметтерді қарау",
+      "strategyTitle": "Біздің стратегия",
+      "strategyLead": "Төрт негізгі тірекке негізделген:",
+      "strategyItems": [
+        "Парсы шығанағына халықаралық рекрутмент — Катар, Сауд Арабиясы және өңір елдері үшін жоғары білікті Қазақстандық мамандарды тарту.",
+        "Қазақстанда Local Content дамыту — Жас ұлттық мамандардың өсуін қолдау және ірі өнеркәсіптік және энергетикалық жобалар үшін біліктілікті арттыру (ҚР мемлекеттік және жастар бағдарламалары арқылы).",
+        "Корпоративтік оқу және даму — Техникалық, басқарушылық және ESG құзыреттерін күшейтуге арналған бағдарламалар.",
+        "HR аутсорсинг және онбординг — Мамандардың жұмсақ бейімделуі, талаптардың сақталуын бақылау және жобаларға толық интеграция."
+      ],
+      "servicesTitle": "Негізгі қызметтер",
+      "servicesBlocks": [
+        { "h": "Рекрутмент және Executive Search", "ps": [
+          "Техникалық және басқарушылық лауазымдарға тұрақты іріктеу.",
+          "Жоғарғы басқару үшін executive search.",
+          "Сирек әрі жоғары білікті мамандарды headhunting."
+        ]},
+        { "h": "Жобалық және уақытша персонал", "ps": [
+          "Уақытша және жобалық аутстаффинг (EPCM/EPC жобалары)."
+        ]},
+        { "h": "Техникалық жұмыс күші және O&M қолдауы", "ps": [
+          "Техникалық қызмет көрсету және пайдалану үшін білікті кадрларды қамтамасыз ету.",
+          "Далалық қызметтер, супервайзинг және жөндеу/тоқтату (shutdown) кезеңіндегі қолдау.",
+          "Энергетика және өнеркәсіп жобалары үшін пайдалану және қызмет көрсету (O&M) бойынша қолдау."
+        ]},
+        { "h": "Халықаралық рекрутмент және мобилити", "ps": [
+          "Халықаралық найм",
+          "Көшу және виза қолдауы.",
+          "Сирек, нишалық сарапшыларды жаһандық іздеу."
+        ]},
+        { "h": "Мансаптық кеңес", "ps": [
+          "Үміткерлерге мансаптық кеңес: дағдыларды дамыту, бәсекеге қабілеттілікті арттыру, өсу жоспары."
+        ]},
+        { "h": "Корпоративтік оқу және даму", "ps": [
+          "Оқыту бағдарламалары (техникалық, басқарушылық, ESG, көшбасшылық)",
+          "Тапсырыс беруші қажеттіліктеріне бейімделген шешімдер",
+          "Халықаралық біліктілікті арттыру бағдарламаларын іріктеу және ұйымдастыру"
+        ]}
+      ],
+      "whyCards": [
+        "Халықаралық тәжірибе + жеке тәсіл — Әр клиент пен кандидат үшін дара стратегиямен жаһандық ноу-хауды біріктіреміз.",
+        "Интеграцияланған шешімдер — Іріктеуден және жалақы аутсорсингінен бастап оқыту мен сертификаттауға дейін — таланттардың толық өмірлік циклі.",
+        "Халықаралық стандарттар — ISO, ILO және HSE талаптарына сәйкестік — сапа, қауіпсіздік және комплаенс.",
+        "Бағалау және дамыту — SHL, Hogan, Talent Q құралдары — дәл бағалау және үздіксіз оқуды қолдау.",
+        "ESG және тұрақтылық — Тұрақтылықтың үш тірегі: Адамдар — әділдік, инклюзия, өсу; Планета — жауапкершілік, ізді азайту; Пайда — ұзақ мерзімді құндылық.",
+        "Стратегиялық серіктестік — Біз тек штат бермейміз — жоғары өнімді командаларды құруда сенімді серіктес боламыз."
+      ],
+      "aboutTitle": "Біз туралы",
+      "aboutText": "Esmera Global Solutions — энергетика саласының үздік халықаралық практикаларына сүйенетін консалтинг және рекрутинг компаниясы. Біз мұнай-газ, өнеркәсіптік құрылыс және ЖЭК бойынша іріктеу, жобаға қолдау және консалтинг ұсынамыз.<br><br>Командамыз халықаралық мұнай-газда 30+ жылдық тәжірибені және Қазақстан мен ТМД-дағы жетекші компанияларда он жылдан астам жұмысты біріктіреді. Бұл үйлесім клиенттерге практикалық құндылық беруге мүмкіндік береді.<br><br>Аксай қаласында құрылған, Карачаганақ ГКК маңында — әлемдік деңгейдегі жобаларға тікелей қатысу. Бұл артықшылықтар клиенттерімізге толық беріледі:",
+      "aboutBullets": [
+        "Озық технологиялар мен алдыңғы қатарлы тәжірибелерге қолжетімділік.",
+        "Үздік кадрларды тартып, бейімдеу қабілеті.",
+        "Халықаралық мұнай нарықтарында 30 жылдан астам тікелей қатысу.",
+        "Нарық өзгерістеріне жылдам жауап беру және инновация енгізу."
+      ],
+      "contactTitle":  "Байланыс",
+      "plateLabels": { "quote": "Коммерциялық ұсыныс", "cv": "Резюмеңізді жолдаңыз", "follow": "Ашық вакансиялар", "linkedin": "LinkedIn", "telegram": "Telegram" },
+      "links": { "linkedin": "https://www.linkedin.com/company/109095232", "telegram": "https://t.me/Esmera_Global_Solutions" }
+    }
+  }
+  </script>
+
+  <script>
+  'use strict';
+
+  /* Hero video init */
+  (function initHeroVideo(){
+    const v = document.getElementById('hero-video');
+    const img = document.getElementById('hero-image');
+    if(!v){ return; }
+    v.muted = true;
+    v.playsInline = true;
+    v.setAttribute('playsinline','');
+
+    const hideImage = ()=>{ if(img) img.style.opacity='0'; };
+    const showImage = ()=>{ if(img) img.style.opacity='1'; };
+
+    const tryPlay = () => {
+      if (v.paused) v.play().then(hideImage).catch(()=>{ showImage(); });
+    };
+
+    if (document.readyState !== 'loading') {
+      tryPlay();
+    } else {
+      document.addEventListener('DOMContentLoaded', tryPlay, {once:true});
+    }
+
+    ['touchstart','pointerdown','click'].forEach(ev =>
+      document.addEventListener(ev, () => { tryPlay(); }, {once:true, passive:true})
+    );
+
+    if ('IntersectionObserver' in window){
+      const io = new IntersectionObserver((ents)=>{
+        ents.forEach(e=>{
+          if(e.isIntersecting){ tryPlay(); }
+          else { v.pause(); showImage(); }
+        });
+      }, {threshold: 0.15});
+      io.observe(v);
+    }
+
+    v.addEventListener('playing', hideImage);
+    v.addEventListener('error', showImage);
+
+    try {
+      const dataReduce = matchMedia('(prefers-reduced-data: reduce)');
+      if (dataReduce.matches) { v.preload = 'metadata'; showImage(); }
+      const motionReduce = matchMedia('(prefers-reduced-motion: reduce)');
+      if (motionReduce.matches) { v.removeAttribute('autoplay'); showImage(); }
+    } catch {}
+
+    if (window.innerWidth >= 768) {
+      const home = document.getElementById('home');
+      if (home) home.classList.add('parallax');
+    }
+  })();
+
+  /* i18n parse (BOM-safe) */
+  const dataEl = document.getElementById('i18n-data');
+  let data = {};
+  try {
+    const raw = dataEl ? (dataEl.textContent || '{}') : '{}';
+    const withoutBOM = raw.replace(/^\uFEFF/, '');
+    data = JSON.parse(withoutBOM);
+    window.__i18nParsedOK = true;
+  } catch (e) {
+    window.__i18nParsedOK = false;
+    console.error('i18n JSON parse error', e);
+    data = { en: { nav:["Home","Strategy","Services","Why Us","About","Contacts"], heroSub:"POWERED BY INDUSTRY EXPERTS: GLOBAL RECRUITMENT & CONSULTING FOR THE OIL & GAS INDUSTRY", heroSub2:"", cta1:"Get your quote today", cta2:"Explore services", strategyTitle:"Our Strategy", strategyLead:"Our strategy is built on four key pillars:", strategyItems:["Pillar 1","Pillar 2","Pillar 3","Pillar 4"], servicesTitle:"Core Services", servicesBlocks:[{"h":"Service","ps":["Item"]}], whyCards:["Reason"], aboutTitle:"About Us", aboutText:"", aboutBullets:[], contactTitle:"Contacts", plateLabels:{quote:"Get your quote today", cv:"Register your CV", follow:"For current opportunities", linkedin:"LinkedIn", telegram:"Telegram"}, links:{linkedin:"https://www.linkedin.com/company/109095232", telegram:"https://t.me/Esmera_Global_Solutions" } } };
+  }
+
+  /* Helpers */
+  function normalizeLinkedInUrl(u){
+    if(!u) return '';
+    let url = String(u).trim();
+    if(!/^https?:\/\//i.test(url)) url = 'https://' + url.replace(/^\/+/, '');
+    const m = url.match(/linkedin\.com\/company\/(\d+|[A-Za-z0-9_-]+)/i);
+    return m ? `https://www.linkedin.com/company/${m[1]}` : url;
+  }
+  function normalizeTMeUrl(u){
+    if(!u) return '';
+    let url = String(u).trim();
+    if (/^t\.me\//i.test(url)) url = 'https://' + url;
+    url = url.replace(/%2B/gi, '+');
+    const isValidUsername = /^(https?:\/\/)?(www\.)?t\.me\/[A-Za-z0-9_]{5,}$/i.test(url);
+    const isInvite = /^(https?:\/\/)?(www\.)?t\.me\/\+[\-A-Za-z0-9_]+$/i.test(url);
+    if(!(isValidUsername || isInvite)) return url.startsWith('http') ? url : 'https://' + url.replace(/^\/+/, '');
+    return url.startsWith('http') ? url : 'https://' + url.replace(/^\/+/, '');
+  }
+  const qs = s => document.querySelector(s);
+  function setText(sel, txt){ const el = qs(sel); if (el) el.textContent = txt; }
+  function setHTML(sel, html){ const el = qs(sel); if (el) el.innerHTML = html; }
+
+  /* Render */
+  function render(lang){
+    const L = data[lang];
+    if (!L) return;
+
+    // hero
+    setText('[data-i18n="hero-sub"]', L.heroSub);
+    setText('[data-i18n="hero-sub-2"]', L.heroSub2 || '');
+    setText('[data-i18n="cta1"]', L.cta1);
+    setText('[data-i18n="cta2"]', L.cta2);
+
+    // NAV: desktop + mobile
+    const navItems = Array.isArray(L.nav) ? L.nav : [];
+    ['#top-nav', '#mobile-nav'].forEach(sel => {
+      const links = document.querySelectorAll(sel + ' a');
+      links.forEach((a, i) => { if (navItems[i]) a.textContent = navItems[i]; });
+    });
+
+    // strategy
+    setText('[data-i18n="strategy-title"]', L.strategyTitle);
+    setText('[data-i18n="strategy-lead"]', L.strategyLead);
+    const sList = qs('#strategy-items');
+    if (sList) {
+      sList.innerHTML = '';
+      (L.strategyItems || []).forEach((t, idx)=>{
+        const li = document.createElement('li');
+        li.className='plate p-6';
+        const parts = String(t).split(' — ');
+        const title = parts.shift();
+        const desc = parts.join(' — ');
+        const h = document.createElement('h3');
+        h.className='font-bold text-lg metallic flex items-center gap-2';
+        const hi = document.createElement('i');
+        const stratIcons = ['globe-2','sprout','graduation-cap','user-cog'];
+        hi.setAttribute('data-lucide', stratIcons[idx % stratIcons.length]);
+        hi.className='w-4 h-4';
+        h.appendChild(hi);
+        h.appendChild(document.createTextNode(title));
+        li.appendChild(h);
+        if (desc && desc.trim().length){
+          const p = document.createElement('p');
+          p.className = 'mt-3';
+          p.textContent = desc.trim();
+          li.appendChild(p);
+        }
+        sList.appendChild(li);
+      });
+    }
+
+    // services
+    setText('[data-i18n="services-title"]', L.servicesTitle);
+    const sBlocks = qs('#services-blocks');
+    if (sBlocks) {
+      sBlocks.innerHTML='';
+      (L.servicesBlocks || []).forEach((b, i)=>{
+        const card = document.createElement('div');
+        card.className = 'plate p-6';
+        const h = document.createElement('h3');
+        h.className='font-bold text-lg metallic flex items-center gap-2';
+        const hi = document.createElement('i');
+        hi.setAttribute('data-lucide', ['search','calendar','users','globe','file-text','graduation-cap'][i % 6] || 'star');
+        hi.className='w-4 h-4';
+        h.appendChild(hi);
+        h.appendChild(document.createTextNode(b.h));
+        card.appendChild(h);
+        const ul = document.createElement('ul');
+        ul.className='mt-3 no-bullets space-y-1';
+        (b.ps || []).forEach(p=>{
+          const li=document.createElement('li');
+          li.textContent=p;
+          ul.appendChild(li);
+        });
+        card.appendChild(ul);
+        sBlocks.appendChild(card);
+      });
+    }
+
+    // why
+    const why = qs('#why-cards');
+    if (why) {
+      why.innerHTML='';
+      (L.whyCards || []).forEach((t, i)=>{
+        const div=document.createElement('div');
+        div.className='plate p-6 shadow';
+        const h=document.createElement('h3');
+        h.className='font-semibold flex items-center gap-2';
+        const ic=document.createElement('i');
+        ic.setAttribute('data-lucide',['globe','layers','shield','activity','leaf','handshake'][ i % 6 ]||'star');
+        ic.className='w-4 h-4';
+        h.appendChild(ic);
+        const titlePart = (t.includes(' — ') ? t.split(' — ')[0] : t);
+        h.appendChild(document.createTextNode(titlePart));
+        div.appendChild(h);
+        if (t.includes(' — ')){
+          const p=document.createElement('p');
+          p.className='mt-2';
+          p.textContent = t.split(' — ').slice(1).join(' — ');
+          div.appendChild(p);
+        }
+        why.appendChild(div);
+      });
+    }
+
+    // about
+    setText('[data-i18n="about-title"]', L.aboutTitle);
+    const aboutPlateEl = qs('#about-plate');
+    if (aboutPlateEl) {
+      const bullets = (L.aboutBullets || []);
+      aboutPlateEl.innerHTML = `<p>${L.aboutText || ''}</p>` +
+        (bullets.length ? `<ul class="emerald-list mt-3">${bullets.map(t=>`<li>${t}</li>`).join('')}</ul>` : '');
+    }
+
+    // contact labels
+    setText('[data-i18n="contact-title"]', L.contactTitle);
+    if (L.plateLabels){
+      setText('[data-i18n="contact-quote-title"]', L.plateLabels.quote);
+      setText('[data-i18n="contact-cv-title"]', L.plateLabels.cv);
+      setText('[data-i18n="contact-follow-title"]', L.plateLabels.follow);
+      setText('[data-i18n="label-linkedin"]', L.plateLabels.linkedin);
+      setText('[data-i18n="label-telegram"]', L.plateLabels.telegram);
+    }
+
+    // Social links from i18n
+    const linkedinLink = document.getElementById('ln-link');
+    const telegramLink = document.getElementById('tg-link');
+    if (linkedinLink){
+      const lnConf = (L.links && L.links.linkedin) ? L.links.linkedin : linkedinLink.getAttribute('href') || '';
+      linkedinLink.setAttribute('href', normalizeLinkedInUrl(lnConf));
+      linkedinLink.setAttribute('rel','noopener noreferrer');
+      linkedinLink.setAttribute('target','_blank');
+    }
+    if (telegramLink){
+      const tgConf = (L.links && L.links.telegram) ? L.links.telegram : telegramLink.getAttribute('href') || '';
+      telegramLink.setAttribute('href', normalizeTMeUrl(tgConf));
+      telegramLink.setAttribute('rel','noopener noreferrer nofollow');
+      telegramLink.setAttribute('target','_blank');
+    }
+
+    // set html lang
+    document.documentElement.lang = lang;
+
+    // hydrate lucide icons after DOM injections
+    if (window.lucide && window.lucide.createIcons) {
+      window.lucide.createIcons();
+    }
+  }
+
+  // Init
+  (function init(){
+    const initial = 'en';
+    try { render(initial); } catch(e){ console.error('Render error on init', e); }
+
+    // Bind language buttons
+    Array.from(document.querySelectorAll('[data-lang-btn]')).forEach(btn => {
+      btn.addEventListener('click', () => {
+        const lang = btn.getAttribute('data-lang-btn') || 'en';
+        /* no persistence */
+        render(lang);
+      });
+    });
+
+    // Mobile menu toggle
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+    if (mobileBtn && mobileNav){
+      mobileBtn.addEventListener('click', () => {
+        const open = mobileNav.classList.toggle('open');
+        mobileBtn.setAttribute('aria-expanded', String(open));
+        if (window.lucide && window.lucide.createIcons) window.lucide.createIcons();
+      });
+    }
+
+    // Ensure Lucide icons hydrate after DOM ready
+    function hydrate(){ if (window.lucide && window.lucide.createIcons) window.lucide.createIcons(); }
+    hydrate();
+    document.addEventListener('DOMContentLoaded', hydrate, {once:true});
+  })();
+
+  // --- Smoke tests (non-breaking) ---
+  (function runSmokeTests(){
+    try {
+      console.assert(window.__i18nParsedOK === true, 'i18n should parse');
+      ['en','ru','kz'].forEach(lang => {
+        const L = (window.__i18n || null) ? window.__i18n[lang] : null; // not set; use data instead
+        const D = (typeof data === 'object') ? data[lang] : null;
+        console.assert(!!D, `Missing dict for ${lang}`);
+        console.assert(Array.isArray(D.nav) && D.nav.length === 6, `nav[${lang}] should have 6 items`);
+        console.assert(typeof D.aboutText === 'string' && D.aboutText.length > 50, `aboutText[${lang}] should be long text`);
+        console.assert(Array.isArray(D.aboutBullets) && D.aboutBullets.length === 4, `aboutBullets[${lang}] should have 4 items`);
+      });
+      console.log('Smoke tests passed');
+    } catch (e) {
+      console.warn('Smoke tests warning', e);
+    }
+  })();
+  </script>
+</body>
+</html>
