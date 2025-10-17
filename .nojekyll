@@ -1,0 +1,7 @@
+cd esmera-landing-pages
+git init
+git branch -M main
+git add .
+git commit -m "Initial commit (Esmera landing)"
+git remote add origin https://github.com/<USERNAME>/<REPO>.git
+git push -u origin main
